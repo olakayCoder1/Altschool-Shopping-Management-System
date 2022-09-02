@@ -1,4 +1,10 @@
 
+
+
+
+from hashlib import new
+
+
 items_category = {
     "men's clothing": {
         'items': []
@@ -34,16 +40,10 @@ def add_item_to_items_category( name , price , category , id ):
             new_item = dict()
             new_item['name'] = name
             new_item['price'] = price
-            new_item['id'] = id 
-            new_item['quantity'] = 10
+            new_item['id'] = id
             items_category.get(str(category))['items'].append(new_item) 
 
 
-
-def decrease_item_quantity(category,id):
-    for item in items_category[category]['items'] :
-        if item['id'] == int(id) :
-            item['quantity'] -= 1
 
 class Item:
     def __init__(self , category , name , price = 10.00 ):
@@ -91,9 +91,9 @@ class Store:
             return None
         current_node = self.head
         while current_node.next_item != None :
-            print(f'{current_node.id} | {current_node.name} | {current_node.price}$ ' )
+            print(f'{current_node.id} | {current_node.name} | {current_node.price}$ | {current_node.category}' )
             current_node = current_node.next_item
-        print(f'{current_node.id} | {current_node.name} | {current_node.price}$ ' )
+        print(f'{current_node.id} | {current_node.name} | {current_node.price}$ | {current_node.category}' )
         return
 
     def display_search(self, result : list ):
@@ -102,41 +102,42 @@ class Store:
 
 
     def search_by_category(self,query):
-        # search_result = [] 
-        # for category in items_category.keys():
-        #     if category.find(query) != -1 :
-        #         for item in items_category[category]['items']:
-        #             search_result.append(item)
-        # if len(search_result) <= 0 :
-        #     print('We do not have item in your search category\nThese are the categories we have: ')
-        #     return
-        # else:
-        #     self.display_search(search_result)
-        
-
-        if items_category.get(str(query)) != None :
-            self.display_search(items_category[query]['items'])
+        search_result = [] 
+        for category in items_category.keys():
+            if category.find(query) != -1 :
+                for item in items_category[category]['items']:
+                    search_result.append(item)
+        if len(search_result) <= 0 :
+            print('We do not have item in your search category\nThese are the categories we have: ')
             return
         else:
-            print('We do not have item in your search category\nThese are the categories we have: ')
+            self.display_search(search_result)
 
 
-    def pick_to_cart(self,id):
+    def user_add_to_cart(self,id):
         if self.head == None:
             return
         current_node = self.head
         while current_node.next_item != None :
             if current_node.id == id :
-                decrease_item_quantity(current_node.category , current_node.id )
-                return {'id': current_node.id  , 'name' : current_node.name , 'price' : current_node.price }
+                return (current_node.name , current_node.price)
             current_node = current_node.next_item
         if current_node.id == id :
-            decrease_item_quantity(current_node.category , current_node.id )
-            return {'id': current_node.id  , 'name' : current_node.name , 'price' : current_node.price }
+            return (current_node.name , current_node.price )
         return
+        pass
 
-
-   
+    def find_food_detail(self,id):
+        if self.head == None:
+            return
+        current_node = self.head
+        while current_node.next_food != None :
+            if current_node.id == id :
+                return (current_node.name , current_node.price)
+            current_node = current_node.next_food
+        if current_node.id == id :
+            return (current_node.name , current_node.price )
+        return
 
 
 store = Store()
@@ -156,36 +157,8 @@ store.add_new_item('Vintage', 2000 , 'men clothing')
 store.add_new_item('Vintage3', 23000 , 'men clothing')
 store.add_new_item('Vintage5', 26000 , 'men clothing')
 
- 
+
 # print(store.print_items())
-# store.search_by_category('men')
-# print(store.pick_to_cart(2))
-# print(store.pick_to_cart(2))
-# print(store.pick_to_cart(2))
-# print(store.pick_to_cart(2))
+store.search_by_category('men')
 
 
-# add_item_to_items_category('Vintage',9000000,'men clothing')
-# add_item_to_items_category('gean',900000,'men clothing')
-
-
-# print(items_category)
-
-class Cart:
-    def __init__(self):
-        self.items = {}
-        
-
-    def add_to_cart(self , id ):
-        item = store.pick_to_cart(id)
-        if self.items.get(item['name']) != None :
-            self.items[item['name']]['quantity'] += 1 
-        else:
-            self.items[item['name']] = dict()
-            self.items[item['name']]['quantity'] = 1
-            self.items[item['name']]['price'] = item['price']
-            self.items[item['name']]['id'] = item['id']
-            return 
-
-# mg = Cart()
-# mg.add_to_cart(3)
