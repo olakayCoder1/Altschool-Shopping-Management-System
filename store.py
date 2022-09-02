@@ -187,5 +187,33 @@ class Cart:
             self.items[item['name']]['id'] = item['id']
             return 
 
-# mg = Cart()
-# mg.add_to_cart(3)
+    def view_cart(self):
+        if len(self.items) == 0 :
+            print('There is no item in the cart')
+            return
+        else:
+            print('⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡ \nCART DETAILS\n ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡')
+            print('ITEM     |     PRICE     |     QUANTITY')
+            for key , value in self.items.items() :
+                print(f"{key} |  {value['price']}  | {value['quantity']}")
+
+    def check_out(self):
+        if len(self.items) == 0 :
+            print('There is no item in the cart')
+            return
+        else:
+            print('⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡ \nPURCHASE DETAILS\n ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡')
+            sum = 0
+            for key , value in self.items.items() :
+                item_total_cost = int(value['price']) * int(value['quantity'])
+                print(f"{key} |  {value['price']}  | {value['quantity']} |  {item_total_cost}")
+                sum += item_total_cost
+
+            print(f'TOTAL COST : {sum}')
+            print('Thanks for your patronage')
+
+
+
+
+
+
