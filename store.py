@@ -156,20 +156,6 @@ store.add_new_item('Vintage', 2000 , 'men clothing')
 store.add_new_item('Vintage3', 23000 , 'men clothing')
 store.add_new_item('Vintage5', 26000 , 'men clothing')
 
- 
-# print(store.print_items())
-# store.search_by_category('men')
-# print(store.pick_to_cart(2))
-# print(store.pick_to_cart(2))
-# print(store.pick_to_cart(2))
-# print(store.pick_to_cart(2))
-
-
-# add_item_to_items_category('Vintage',9000000,'men clothing')
-# add_item_to_items_category('gean',900000,'men clothing')
-
-
-# print(items_category)
 
 class Cart:
     def __init__(self):
