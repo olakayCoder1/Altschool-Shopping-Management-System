@@ -1,8 +1,7 @@
 import requests
 import store
 
-response = requests.get('https://fakestoreapi.com/products')
-data = response.json()
+
 
 def upload_items_to_file():
     file = open('items.txt','w') 
@@ -66,31 +65,8 @@ def program():
 
         if user_response.lower() == 'e' :
             start = False
-
-            # print('You can search product by the following category: ')
         
 
-
-
-    # if user_response.lower() == 'c' :
-    #     pass
-
-    # if user_response.lower() == 'd' :
-    #     pass
-
-
-
-    cart = store.Cart()
-    cart.add_to_cart(2)
-    cart.add_to_cart(2)
-    cart.add_to_cart(2)
-    cart.add_to_cart(2)
-    cart.add_to_cart(9)
-    cart.add_to_cart(2)
-    
-
-
-program()
     
 
 
